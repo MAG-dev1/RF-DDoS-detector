@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  attacker:
+    build: ./attacker
+    environment:
+      - TARGET_HOST=host.docker.internal    # apunta al host Linux
+      - TARGET_PORT=8080
+      - CONC=50
+      - ITER=1000
+      - DELAY=0.01
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+    mem_limit: 256m
+    cpus: "0.5"
+
+networks:
+  default:
+    driver: bridge
+        
